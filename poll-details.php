@@ -6,7 +6,7 @@ if ($conn->connect_error) {
 }
 
 $poll_id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
-$sql = "SELECT title, category, options, description, created_at, anonymous_voting, require_login, image_url FROM polls WHERE id = ?";
+$sql = "SELECT title, category, options, description, created_at, anonymous_voting, require_login FROM polls WHERE id = ?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $poll_id);
 $stmt->execute();

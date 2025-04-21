@@ -32,7 +32,7 @@ if (isset($_SESSION['message'])) {
 }
 
 // Fetch recent polls for the Recent Polls section
-$recent_polls_sql = "SELECT p.id, p.title, p.category, p.created_at, p.image_url, COUNT(v.id) as vote_count 
+$recent_polls_sql = "SELECT p.id, p.title, p.category, p.created_at, COUNT(v.id) as vote_count 
                      FROM polls p 
                      LEFT JOIN votes v ON p.id = v.poll_id 
                      GROUP BY p.id 
@@ -357,7 +357,7 @@ $recent_polls_result = $conn->query($recent_polls_sql);
                     ];
                     
                     // Use the poll's custom image if available, otherwise use a category image
-                    $imageUrl = !empty($poll['image_url']) ? $poll['image_url'] : ($categoryImages[$category] ?? 'https://images.unsplash.com/photo-1523961131990-5ea7c61b2107?q=80&w=600');
+                    $imageUrl = $categoryImages[$category] ?? 'https://images.unsplash.com/photo-1523961131990-5ea7c61b2107?q=80&w=600';
                     ?>
                     <div class="bg-white rounded-lg shadow-md overflow-hidden card-hover fade-in-delay-1 relative h-80 transform transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
                         <div class="absolute inset-0">

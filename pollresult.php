@@ -21,7 +21,7 @@ if (isset($_SESSION['user_id'])) {
 }
 
 // Fetch all polls (no user_id filter)
-$sql = "SELECT p.id, p.title, p.category, p.created_at, p.image_url, COUNT(v.id) as vote_count 
+$sql = "SELECT p.id, p.title, p.category, p.created_at, COUNT(v.id) as vote_count 
         FROM polls p 
         LEFT JOIN votes v ON p.id = v.poll_id 
         GROUP BY p.id 
@@ -149,7 +149,7 @@ $result = $conn->query($sql);
                         ];
                         
                         // Use custom image if available, otherwise use category image
-                        $imageUrl = !empty($row['image_url']) ? $row['image_url'] : ($categoryImages[$category] ?? 'https://images.unsplash.com/photo-1523961131990-5ea7c61b2107?q=80&w=600');
+                        $imageUrl = $categoryImages[$category] ?? 'https://images.unsplash.com/photo-1523961131990-5ea7c61b2107?q=80&w=600';
                         ?>
                         <div class="absolute inset-0">
                             <img src="<?php echo $imageUrl; ?>" alt="<?php echo $category; ?>" class="w-full h-full object-cover">
